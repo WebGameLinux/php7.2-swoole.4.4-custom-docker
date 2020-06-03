@@ -1,0 +1,13 @@
+version: "3"
+services:
+  app:
+    image: ${image}
+    container_name: ${container_name}
+    ports:
+      - ${http_port}:8080
+    volumes:
+      - ${app_dir}:/var/www/app
+      - ${user_dir}:/home/${work_user}
+      - ${my_php_etc_dir}:${php_etc_dir}
+      - ${DOCKER_COMPOSER_DIR}/endtrypoint.sh:/usr/bin/endtrypoint.sh
+    restart: "always"
