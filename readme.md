@@ -11,8 +11,11 @@ FROM weblinuxgame/php7.2-swoole4.4:1.0.0
 
 LABEL maintainer="weblinuxgame <weblinuxgame@126.com>"
 
-ENV php_etc_dir="" \
-    php_etc_backup_dir=""
+# env
+ENV php_etc_dir=${PHP_INI_DIR} \
+    php_etc_backup_dir="/var/www/php_etc" \
+    app_hooks_dir="/var/www/hooks" \
+    prepare_hook=${app_hooks_dir}/prepare.sh
 
 # copy
 COPY endtrypoint.sh /usr/bin/endtrypoint.sh
@@ -21,8 +24,6 @@ COPY endtrypoint.sh /usr/bin/endtrypoint.sh
 RUN cp -rf ${php_etc_dir}/*  ${php_etc_backup_dir}/
 
 # hook , etc
-VOLUME [ "/var/www/hooks" "/usr/local/php/etc" ]
+VOLUME [ "${app_hooks_dir}" "${php_etc_dir}" ]
 
-# export ports
-EXPOSE 8080
 ```
