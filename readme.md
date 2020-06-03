@@ -21,7 +21,7 @@ ENV php_etc_dir=${PHP_INI_DIR} \
 COPY endtrypoint.sh /usr/bin/endtrypoint.sh
 
 # copy etc backup
-RUN cp -rf ${php_etc_dir}/*  ${php_etc_backup_dir}/
+RUN  mkdir -p  ${php_etc_backup_dir}  && cp -rf ${php_etc_dir}/*  ${php_etc_backup_dir}/
 
 # hook , etc
 VOLUME [ "${app_hooks_dir}" "${php_etc_dir}" ]
